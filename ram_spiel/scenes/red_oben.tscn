@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://speicher_spiele/ram_spiel/assets/bus_red.png" type="Texture" id=1]
+
+[node name="red_oben" type="Sprite"]
+texture = ExtResource( 1 )

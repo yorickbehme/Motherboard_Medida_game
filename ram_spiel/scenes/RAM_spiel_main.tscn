@@ -1,0 +1,285 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/bus_player3.tscn" type="PackedScene" id=1]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/bus_player4.tscn" type="PackedScene" id=2]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/parking_position.tscn" type="PackedScene" id=3]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/orange_unten.tscn" type="PackedScene" id=4]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/green_oben.tscn" type="PackedScene" id=5]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/blue_unten.tscn" type="PackedScene" id=6]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/yellow_oben.tscn" type="PackedScene" id=7]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/yellow_unten.tscn" type="PackedScene" id=8]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/green_unten.tscn" type="PackedScene" id=9]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/purple_unten.tscn" type="PackedScene" id=10]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/red_unten.tscn" type="PackedScene" id=11]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/orange_oben.tscn" type="PackedScene" id=12]
+[ext_resource path="res://speicher_spiele/ram_spiel/scripts/ram_gamelogic.gd" type="Script" id=13]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/bus_player1.tscn" type="PackedScene" id=14]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/bus_player2.tscn" type="PackedScene" id=15]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/purple_oben.tscn" type="PackedScene" id=16]
+[ext_resource path="res://speicher_spiele/ram_spiel/scenes/blue_oben.tscn" type="PackedScene" id=17]
+[ext_resource path="res://speicher_spiele/ram_spiel/assets/Parkplatz.png" type="Texture" id=18]
+[ext_resource path="res://Assets/holly_happy.png" type="Texture" id=19]
+
+[node name="ram_spiel_main" type="Node2D"]
+script = ExtResource( 13 )
+
+[node name="parking_area" type="Sprite" parent="."]
+texture = ExtResource( 18 )
+centered = false
+
+[node name="bus_nodes" type="Node" parent="."]
+
+[node name="bus_1" parent="bus_nodes" instance=ExtResource( 14 )]
+position = Vector2( 184, -242 )
+z_index = 1
+
+[node name="bus_2" parent="bus_nodes" instance=ExtResource( 14 )]
+position = Vector2( 395, -249 )
+z_index = 1
+
+[node name="bus_3" parent="bus_nodes" instance=ExtResource( 14 )]
+position = Vector2( 602, -244 )
+z_index = 1
+
+[node name="bus_4" parent="bus_nodes" instance=ExtResource( 14 )]
+position = Vector2( 2904, -231 )
+z_index = 1
+
+[node name="bus_5" parent="bus_nodes" instance=ExtResource( 15 )]
+position = Vector2( 2732, -264 )
+z_index = 1
+
+[node name="bus_6" parent="bus_nodes" instance=ExtResource( 15 )]
+position = Vector2( 2538, -260 )
+z_index = 1
+
+[node name="bus_7" parent="bus_nodes" instance=ExtResource( 15 )]
+position = Vector2( 2363, -255 )
+z_index = 1
+
+[node name="bus_8" parent="bus_nodes" instance=ExtResource( 15 )]
+position = Vector2( 2192, -251 )
+z_index = 1
+
+[node name="bus_9" parent="bus_nodes" instance=ExtResource( 1 )]
+position = Vector2( 2016, -261 )
+z_index = 1
+
+[node name="bus_10" parent="bus_nodes" instance=ExtResource( 1 )]
+position = Vector2( 1839, -261 )
+z_index = 1
+
+[node name="bus_11" parent="bus_nodes" instance=ExtResource( 1 )]
+position = Vector2( 1682, -261 )
+z_index = 1
+
+[node name="bus_12" parent="bus_nodes" instance=ExtResource( 1 )]
+position = Vector2( 1519, -261 )
+z_index = 1
+
+[node name="bus_13" parent="bus_nodes" instance=ExtResource( 2 )]
+position = Vector2( 1320, -261 )
+z_index = 1
+
+[node name="bus_14" parent="bus_nodes" instance=ExtResource( 2 )]
+position = Vector2( 1144, -257 )
+z_index = 1
+
+[node name="bus_15" parent="bus_nodes" instance=ExtResource( 2 )]
+position = Vector2( 961, -248 )
+z_index = 1
+
+[node name="bus_16" parent="bus_nodes" instance=ExtResource( 2 )]
+position = Vector2( 792, -254 )
+z_index = 1
+
+[node name="parking_zones" type="Node" parent="."]
+
+[node name="parking_position" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 297, 328 )
+
+[node name="parking_position2" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 1664, 334 )
+
+[node name="parking_position3" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 2393, 344 )
+
+[node name="parking_position4" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 2715, 341 )
+
+[node name="parking_position5" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 574, 964 )
+
+[node name="parking_position6" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 875, 967 )
+
+[node name="parking_position7" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 1176, 974 )
+
+[node name="parking_position8" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 1675, 979 )
+
+[node name="parking_position9" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 1974, 984 )
+
+[node name="parking_position10" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 2425, 994 )
+
+[node name="parking_position11" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 1027, 1219 )
+
+[node name="parking_position12" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 1981, 1222 )
+
+[node name="parking_position13" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 268, 1831 )
+
+[node name="parking_position14" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 1347, 1840 )
+
+[node name="parking_position15" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 2239, 1843 )
+
+[node name="parking_position16" parent="parking_zones" instance=ExtResource( 3 )]
+position = Vector2( 2733, 1845 )
+
+[node name="optical_objects" type="Node" parent="."]
+
+[node name="blue_oben" parent="optical_objects" instance=ExtResource( 17 )]
+position = Vector2( 1334, 1223 )
+
+[node name="blue_oben2" parent="optical_objects" instance=ExtResource( 17 )]
+position = Vector2( 1351, 340 )
+rotation = 3.14159
+
+[node name="orange_unten" parent="optical_objects" instance=ExtResource( 4 )]
+position = Vector2( 593, 1814 )
+rotation = -5.07036e-06
+
+[node name="purple_oben" parent="optical_objects" instance=ExtResource( 16 )]
+position = Vector2( 1217, 348 )
+rotation = 3.14159
+
+[node name="green_oben" parent="optical_objects" instance=ExtResource( 5 )]
+position = Vector2( 429, 1819 )
+rotation = 3.14159
+
+[node name="blue_unten" parent="optical_objects" instance=ExtResource( 6 )]
+position = Vector2( 763, 1830 )
+
+[node name="yellow_oben" parent="optical_objects" instance=ExtResource( 7 )]
+position = Vector2( 1324, 966 )
+
+[node name="yellow_unten" parent="optical_objects" instance=ExtResource( 8 )]
+position = Vector2( 1030, 965 )
+
+[node name="green_unten" parent="optical_objects" instance=ExtResource( 9 )]
+position = Vector2( 737, 1216 )
+
+[node name="blue_oben3" parent="optical_objects" instance=ExtResource( 17 )]
+position = Vector2( 730, 959 )
+rotation = 3.14159
+
+[node name="blue_unten2" parent="optical_objects" instance=ExtResource( 6 )]
+position = Vector2( 628, 340 )
+
+[node name="orange_unten2" parent="optical_objects" instance=ExtResource( 4 )]
+position = Vector2( 457, 337 )
+
+[node name="purple_unten" parent="optical_objects" instance=ExtResource( 10 )]
+position = Vector2( 2136, 1231 )
+
+[node name="purple_oben2" parent="optical_objects" instance=ExtResource( 16 )]
+position = Vector2( 2586, 1829 )
+
+[node name="orange_unten3" parent="optical_objects" instance=ExtResource( 4 )]
+position = Vector2( 876, 1221 )
+
+[node name="green_unten2" parent="optical_objects" instance=ExtResource( 9 )]
+position = Vector2( 1675, 1228 )
+
+[node name="yellow_unten3" parent="optical_objects" instance=ExtResource( 8 )]
+position = Vector2( 2225, 348 )
+
+[node name="yellow_unten2" parent="optical_objects" instance=ExtResource( 8 )]
+position = Vector2( 1793, 353 )
+
+[node name="green_oben2" parent="optical_objects" instance=ExtResource( 5 )]
+position = Vector2( 1176, 1219 )
+
+[node name="purple_unten2" parent="optical_objects" instance=ExtResource( 10 )]
+position = Vector2( 577, 1204 )
+
+[node name="blue_unten5" parent="optical_objects" instance=ExtResource( 6 )]
+position = Vector2( 1825, 1222 )
+
+[node name="red_unten" parent="optical_objects" instance=ExtResource( 11 )]
+position = Vector2( 2277, 962 )
+
+[node name="blue_unten6" parent="optical_objects" instance=ExtResource( 6 )]
+position = Vector2( 2121, 962 )
+
+[node name="green_unten4" parent="optical_objects" instance=ExtResource( 9 )]
+position = Vector2( 1788, 1834 )
+
+[node name="orange_oben2" parent="optical_objects" instance=ExtResource( 12 )]
+position = Vector2( 1821, 957 )
+
+[node name="red_unten2" parent="optical_objects" instance=ExtResource( 11 )]
+position = Vector2( 1661, 1836 )
+
+[node name="purple_oben3" parent="optical_objects" instance=ExtResource( 16 )]
+position = Vector2( 2427, 1230 )
+
+[node name="green_oben3" parent="optical_objects" instance=ExtResource( 5 )]
+position = Vector2( 2548, 341 )
+
+[node name="orange_unten4" parent="optical_objects" instance=ExtResource( 4 )]
+position = Vector2( 2424, 1836 )
+
+[node name="blue_oben4" parent="optical_objects" instance=ExtResource( 17 )]
+position = Vector2( 2278, 1228 )
+
+[node name="yellow_oben2" parent="optical_objects" instance=ExtResource( 7 )]
+position = Vector2( 778, 328 )
+
+[node name="orange_oben" parent="optical_objects" instance=ExtResource( 12 )]
+position = Vector2( 1219, 1820 )
+
+[node name="Holly1" type="TextureButton" parent="."]
+margin_left = 3106.0
+margin_top = 1460.0
+margin_right = 3960.0
+margin_bottom = 2384.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture_normal = ExtResource( 19 )
+
+[node name="Holly2" type="TextureButton" parent="."]
+margin_left = 3531.0
+margin_top = 700.0
+margin_right = 4385.0
+margin_bottom = 1624.0
+rect_rotation = 180.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture_normal = ExtResource( 19 )
+
+[connection signal="drag_ended" from="bus_nodes/bus_1" to="." method="_on_bus_1_drag_ended"]
+[connection signal="drag_started" from="bus_nodes/bus_1" to="." method="_on_bus_1_drag_started"]
+[connection signal="drag_ended" from="bus_nodes/bus_2" to="." method="_on_bus_2_drag_ended"]
+[connection signal="drag_started" from="bus_nodes/bus_2" to="." method="_on_bus_2_drag_started"]
+[connection signal="drag_ended" from="bus_nodes/bus_3" to="." method="_on_bus_3_drag_ended"]
+[connection signal="drag_ended" from="bus_nodes/bus_4" to="." method="_on_bus_4_drag_ended"]
+[connection signal="drag_ended" from="bus_nodes/bus_5" to="." method="_on_bus_5_drag_ended"]
+[connection signal="drag_ended" from="bus_nodes/bus_6" to="." method="_on_bus_6_drag_ended"]
+[connection signal="drag_ended" from="bus_nodes/bus_7" to="." method="_on_bus_7_drag_ended"]
+[connection signal="drag_ended" from="bus_nodes/bus_8" to="." method="_on_bus_8_drag_ended"]
+[connection signal="drag_ended" from="bus_nodes/bus_9" to="." method="_on_bus_9_drag_ended"]
+[connection signal="drag_ended" from="bus_nodes/bus_10" to="." method="_on_bus_10_drag_ended"]
+[connection signal="drag_ended" from="bus_nodes/bus_11" to="." method="_on_bus_11_drag_ended"]
+[connection signal="drag_ended" from="bus_nodes/bus_12" to="." method="_on_bus_12_drag_ended"]
+[connection signal="drag_ended" from="bus_nodes/bus_13" to="." method="_on_bus_13_drag_ended"]
+[connection signal="drag_ended" from="bus_nodes/bus_14" to="." method="_on_bus_14_drag_ended"]
+[connection signal="drag_ended" from="bus_nodes/bus_15" to="." method="_on_bus_15_drag_ended"]
+[connection signal="drag_ended" from="bus_nodes/bus_16" to="." method="_on_bus_16_drag_ended"]
+[connection signal="pressed" from="Holly1" to="." method="_on_Holly_pressed"]
+[connection signal="pressed" from="Holly2" to="." method="_on_Holly_pressed"]
