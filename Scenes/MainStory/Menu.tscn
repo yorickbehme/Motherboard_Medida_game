@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/MainStory/Menu.gd" type="Script" id=1]
+[ext_resource path="res://Assets/button_go.png" type="Texture" id=2]
+[ext_resource path="res://Assets/button_go_pressed.png" type="Texture" id=3]
+[ext_resource path="res://Assets/mother_board_title.png" type="Texture" id=4]
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 3840.0
+margin_bottom = 2160.0
+
+[node name="Start1" type="TextureButton" parent="."]
+margin_left = 1652.0
+margin_top = 150.0
+margin_right = 2545.0
+margin_bottom = 473.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+flip_h = true
+flip_v = true
+
+[node name="Start2" type="TextureButton" parent="."]
+margin_left = 1652.0
+margin_top = 1816.0
+margin_right = 2545.0
+margin_bottom = 2139.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+
+[node name="MotherBoardTitle2" type="Sprite" parent="."]
+position = Vector2( 1192, 656 )
+scale = Vector2( 0.61, 0.61 )
+texture = ExtResource( 4 )
+offset = Vector2( 1229.21, -52.4509 )
+flip_h = true
+flip_v = true
+
+[node name="MotherBoardTitle" type="Sprite" parent="."]
+position = Vector2( 1176, 1536 )
+scale = Vector2( 0.61, 0.61 )
+texture = ExtResource( 4 )
+offset = Vector2( 1229.21, -52.4509 )
+
+[connection signal="pressed" from="Start1" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="Start2" to="." method="_on_StartButton_pressed"]
