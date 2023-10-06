@@ -1,0 +1,1817 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://CpuGpu/Sprites/and_gate.png" type="Texture" id=1]
+[ext_resource path="res://CpuGpu/Sprites/button_on.png" type="Texture" id=2]
+[ext_resource path="res://CpuGpu/Sprites/button_off.png" type="Texture" id=3]
+[ext_resource path="res://CpuGpu/Sprites/bulb_off.png" type="Texture" id=4]
+[ext_resource path="res://CpuGpu/Sprites/bulb_on.png" type="Texture" id=5]
+[ext_resource path="res://CpuGpu/CpuGame.gd" type="Script" id=6]
+[ext_resource path="res://CpuGpu/Lightbulb.gd" type="Script" id=7]
+[ext_resource path="res://Assets/holly_happy.png" type="Texture" id=8]
+[ext_resource path="res://CpuGpu/Switch.tscn" type="PackedScene" id=9]
+[ext_resource path="res://CpuGpu/LogicOr.gd" type="Script" id=12]
+[ext_resource path="res://CpuGpu/LogicInvert.gd" type="Script" id=13]
+[ext_resource path="res://CpuGpu/LogicAnd.gd" type="Script" id=14]
+[ext_resource path="res://CpuGpu/Sprites/or_gate.png" type="Texture" id=15]
+[ext_resource path="res://CpuGpu/Sprites/not_gate_on.png" type="Texture" id=16]
+[ext_resource path="res://CpuGpu/Sprites/not_gate_off.png" type="Texture" id=17]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 17 ) ],
+"loop": false,
+"name": "off",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": false,
+"name": "on",
+"speed": 1.0
+} ]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": false,
+"name": "off",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "on",
+"speed": 1.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+
+[node name="CpuContainer" type="Node2D"]
+position = Vector2( -1, 0 )
+script = ExtResource( 6 )
+
+[node name="Background" type="Node2D" parent="."]
+z_index = -50
+
+[node name="Background" type="ColorRect" parent="Background"]
+margin_right = 3841.0
+margin_bottom = 2160.0
+
+[node name="Switch" parent="." instance=ExtResource( 9 )]
+visible = false
+margin_left = 1513.0
+margin_top = 256.0
+margin_right = 1799.0
+margin_bottom = 553.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+
+[node name="Wire" type="Line2D" parent="Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( 8, -48, 8, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicAnd" type="Node2D" parent="."]
+visible = false
+position = Vector2( 520, 328 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="LogicAnd"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( 8, -48, 8, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="LogicAnd"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="LogicOr" type="Node2D" parent="."]
+visible = false
+position = Vector2( 919, 328 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="LogicOr"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( 9, -86, 9, 26, -135, 26, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="LogicOr"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 15 )
+
+[node name="LogicInvert" type="Node2D" parent="."]
+visible = false
+position = Vector2( 1248, 304 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( 8, -88, 8, 24, -136, 24, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Lightbulb" type="Node2D" parent="."]
+position = Vector2( 2417, -352 )
+rotation = 1.57079
+z_index = 20
+script = ExtResource( 7 )
+
+[node name="LogicImage" type="AnimatedSprite" parent="Lightbulb"]
+position = Vector2( 1417, 1040 )
+scale = Vector2( 0.407863, 0.407863 )
+z_index = 20
+frames = SubResource( 3 )
+animation = "on"
+
+[node name="LogicAnd_links" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1416, 1592 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -127.999, -256, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="LogicInvert_oben_links" type="Node2D" parent="Lightbulb/LogicAnd_links"]
+position = Vector2( -144, 144 )
+rotation = 1.57079
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -256, 103.999, -136, 104, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="LogicOr" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links"]
+position = Vector2( -0.000488281, 120 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -135, 55.9999, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 15 )
+
+[node name="LogicOr" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr"]
+position = Vector2( -528.001, 199.998 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( 327.001, -7.99792, 327, 72.0021, -135, 72, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 15 )
+
+[node name="Switch" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr" instance=ExtResource( 9 )]
+margin_left = -216.002
+margin_top = 359.999
+margin_right = 69.9984
+margin_bottom = 656.999
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -47.9985, -223.999, -47.9998, 32.0007, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr"]
+position = Vector2( 55.9989, 248 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -135.999, -32, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Switch" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/LogicInvert" instance=ExtResource( 9 )]
+margin_left = -72.0005
+margin_top = 112.0
+margin_right = 214.0
+margin_bottom = 409.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/LogicInvert/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -128, 24.0003, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/LogicInvert/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicAnd" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr"]
+position = Vector2( 199.999, 152.001 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -272, 39.9994, -272, 79.9994, -128, 80, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="LogicOr" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd"]
+position = Vector2( -336.001, 143.999 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( 135, 56.0012, 135, 88.0012, -135, 88, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 15 )
+
+[node name="Switch" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr" instance=ExtResource( 9 )]
+margin_left = -216.001
+margin_top = 263.999
+margin_right = 69.9988
+margin_bottom = 560.999
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -47.999, -127.999, -47.9996, 32.0007, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr"]
+position = Vector2( 55.9994, 160 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, 24, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Switch" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/LogicInvert" instance=ExtResource( 9 )]
+margin_left = -72.0005
+margin_top = 104.0
+margin_right = 214.0
+margin_bottom = 401.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/LogicInvert/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/LogicInvert/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicOr2" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd"]
+position = Vector2( 79.9993, 152 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -160.999, 39.9999, -161, 87.9999, -135, 87.9999, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 15 )
+
+[node name="Switch" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2" instance=ExtResource( 9 )]
+margin_left = -232.001
+margin_top = 255.999
+margin_right = 53.999
+margin_bottom = 552.999
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -31.9992, -119.999, -31.9999, 32.0007, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicAnd" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2"]
+position = Vector2( 135.999, 160.001 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -207.999, 15.9996, -208, 71.9996, -128, 72, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="Switch" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd" instance=ExtResource( 9 )]
+margin_left = 40.9989
+margin_top = 99.5005
+margin_right = 326.999
+margin_bottom = 396.5
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -192.999, 36.4997, -192.999, 76.4997, -128.999, 76.5, -128.999, 116.5 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="Switch2" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd" instance=ExtResource( 9 )]
+margin_left = -167.001
+margin_top = 99.499
+margin_right = 118.999
+margin_bottom = 396.499
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd/Switch2"]
+position = Vector2( 402, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -96.999, 36.5007, -96.9992, 76.5007, -129.999, 76.5005, -129.999, 124.501 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd/Switch2"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicAnd_unten_links" type="Node2D" parent="Lightbulb/LogicAnd_links"]
+position = Vector2( 216, 144 )
+rotation = -1.57079
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( 8, -8.00012, -128, -8.00012, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links"]
+position = Vector2( -208, 144 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( 8, 63.9999, 8, 120, -136, 120, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="LogicOr" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert"]
+position = Vector2( 0, 136 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -135, 47.9999, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 15 )
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr"]
+position = Vector2( -320, 248 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( 120, -40.0001, 120, 15.9999, -136, 15.9999, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Switch" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicInvert" instance=ExtResource( 9 )]
+margin_left = -72.0
+margin_top = 120.0
+margin_right = 214.0
+margin_bottom = 417.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicInvert/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -128, 15.9999, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicInvert/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicOr" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr"]
+position = Vector2( 32, 160 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -113, 23.9999, -113, 79.9999, -137, 79.9999, -137, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 15 )
+
+[node name="Switch" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr" instance=ExtResource( 9 )]
+margin_left = -216.0
+margin_top = 208.0
+margin_right = 70.0
+margin_bottom = 505.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -48, -72.0001, -48, 31.9999, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr"]
+position = Vector2( 56, 120 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, 71.9999, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Switch" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/LogicInvert" instance=ExtResource( 9 )]
+margin_left = -72.0
+margin_top = 88.0
+margin_right = 214.0
+margin_bottom = 385.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/LogicInvert/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/LogicInvert/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicOr" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links"]
+position = Vector2( 264, 168 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -345, 15.9999, -345, 71.9999, -135, 71.9999, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 15 )
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr"]
+position = Vector2( -88, 144 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -112, 63.9999, -112, 120, -136, 120, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="LogicAnd" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert"]
+position = Vector2( 0, 120 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="Switch" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd" instance=ExtResource( 9 )]
+margin_left = -168.0
+margin_top = 216.0
+margin_right = 118.0
+margin_bottom = 513.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -96, -80.0001, -96, 31.9999, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd"]
+position = Vector2( 104, 128 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -184, 87.9999, -184, 128, -136, 128, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Switch" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/LogicInvert" instance=ExtResource( 9 )]
+margin_left = -72.0
+margin_top = 88.0
+margin_right = 214.0
+margin_bottom = 385.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/LogicInvert/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/LogicInvert/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicAnd" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr"]
+position = Vector2( 280, 144 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -352, 47.9999, -352, 79.9999, -128, 79.9999, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd"]
+position = Vector2( -65, 168 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, 24, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Switch" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicInvert" instance=ExtResource( 9 )]
+margin_left = -72.0
+margin_top = 168.0
+margin_right = 214.0
+margin_bottom = 465.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicInvert/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -128, -40.0001, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicInvert/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicAnd" type="Node2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd"]
+position = Vector2( 192, 152 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd"]
+position = Vector2( 117, -152 )
+z_index = 10
+points = PoolVector2Array( -253, 31.9999, -253, 79.9999, -128, 79.9999, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="Switch" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd" instance=ExtResource( 9 )]
+margin_left = -136.0
+margin_top = 184.0
+margin_right = 150.0
+margin_bottom = 481.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -128, -48.0001, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="Switch2" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd" instance=ExtResource( 9 )]
+margin_left = 64.0
+margin_top = 184.0
+margin_right = 350.0
+margin_bottom = 481.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd/Switch2"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -208, -48.0001, -208, 31.9999, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd/Switch2"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicAnd_rechts" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1424, 552.003 )
+rotation = -3.14159
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -128.001, -192, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="LogicInvert_unten_rechts" type="Node2D" parent="Lightbulb/LogicAnd_rechts"]
+position = Vector2( -135.999, 296 )
+rotation = 1.57079
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -399.999, 104, -135.999, 104, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="LogicOr" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts"]
+position = Vector2( 0, 120 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -135, 26, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 15 )
+
+[node name="LogicAnd" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr"]
+position = Vector2( -208, 160 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( 8, -48, 8, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="LogicAnd" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd"]
+position = Vector2( -64, 152 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( 8, -48, 8, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd"]
+position = Vector2( -136, 176 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -63.999, 32.0006, -63.999, 104.001, -135.999, 104.001, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Switch" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/LogicInvert" instance=ExtResource( 9 )]
+margin_left = -72.0
+margin_top = 112.0
+margin_right = 214.0
+margin_bottom = 409.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/LogicInvert/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -127.999, 24.0006, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/LogicInvert/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="Switch" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd" instance=ExtResource( 9 )]
+margin_left = -8.0
+margin_top = 288.0
+margin_right = 278.0
+margin_bottom = 585.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -127.999, -151.999, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicOr" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd"]
+position = Vector2( 256, 152 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -336.999, 32.0006, -336.999, 80.0006, -135, 80.0006, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 15 )
+
+[node name="Switch" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr" instance=ExtResource( 9 )]
+margin_left = -136.0
+margin_top = 288.0
+margin_right = 150.0
+margin_bottom = 585.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -127.999, -151.999, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicAnd" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr"]
+position = Vector2( 192, 144 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -263.999, 40.0006, -263.999, 80.0006, -127.999, 80.0006, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="Switch" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd" instance=ExtResource( 9 )]
+margin_left = -136.0
+margin_top = 144.0
+margin_right = 150.0
+margin_bottom = 441.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -127.999, -15.9994, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="Switch2" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd" instance=ExtResource( 9 )]
+margin_left = 56.0
+margin_top = 144.0
+margin_right = 342.0
+margin_bottom = 441.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd/Switch2"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -199.999, -7.99939, -199.999, 48.0006, -127.999, 48.0006, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd/Switch2"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr"]
+position = Vector2( 632, 168 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -711.999, 32.0006, -711.999, 96.0006, -135.999, 96.0006, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="LogicAnd" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert"]
+position = Vector2( 0, 160 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -127.999, 24.0006, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="Switch" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd" instance=ExtResource( 9 )]
+margin_left = -136.0
+margin_top = 272.0
+margin_right = 150.0
+margin_bottom = 569.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -127.999, -135.999, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd"]
+position = Vector2( 128, 160 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -207.999, 56.0006, -207.999, 112.001, -135.999, 112.001, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Switch" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/LogicInvert" instance=ExtResource( 9 )]
+margin_left = -72.0
+margin_top = 112.0
+margin_right = 214.0
+margin_bottom = 409.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/LogicInvert/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -127.999, 16.0006, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/LogicInvert/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicAnd_oben_rechts" type="Node2D" parent="Lightbulb/LogicAnd_rechts"]
+position = Vector2( 208, 296 )
+rotation = -1.57079
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( 135.999, 7.9989, -128.001, 8.00006, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts"]
+position = Vector2( -416, 160.002 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( 216, 47.9984, 216, 95.9984, -136, 95.9999, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="LogicAnd" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert"]
+position = Vector2( 0.000488281, 120 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -128, 56, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="LogicOr" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd"]
+position = Vector2( -191.999, 152.001 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -9.00049, 39.9994, -9.00024, 79.9994, -135, 80, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 15 )
+
+[node name="Switch" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr" instance=ExtResource( 9 )]
+margin_left = -215.999
+margin_top = 192.001
+margin_right = 70.0009
+margin_bottom = 489.001
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -48.0007, -56.0007, -48.0005, 31.9993, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr"]
+position = Vector2( 56.0004, 112 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, 96, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Switch" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/LogicInvert" instance=ExtResource( 9 )]
+margin_left = -71.9994
+margin_top = 80.0003
+margin_right = 214.001
+margin_bottom = 377.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/LogicInvert/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -128, 47.9997, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/LogicInvert/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd"]
+position = Vector2( 56.0009, 152 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136.001, 47.9999, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Switch" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicInvert" instance=ExtResource( 9 )]
+margin_left = -71.9995
+margin_top = 192.0
+margin_right = 214.0
+margin_bottom = 489.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicInvert/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -128.001, -56.0003, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicInvert/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicAnd" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts"]
+position = Vector2( 176, 167.999 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -248.001, 16.0005, -248, 72.0005, -128, 72, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="LogicAnd" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd"]
+position = Vector2( -167.999, 168.001 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -24.0004, 7.99957, -24.0001, 55.9996, -128, 56.0001, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd"]
+position = Vector2( -175.999, 168.001 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -16.0005, 47.9994, -16.0002, 95.9994, -136, 96, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Switch" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicInvert" instance=ExtResource( 9 )]
+margin_left = -71.999
+margin_top = 120.0
+margin_right = 214.001
+margin_bottom = 417.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicInvert/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -128.001, 15.9997, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicInvert/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicOr" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd"]
+position = Vector2( 152.001, 151.999 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -233, 40.0004, -233, 80.0004, -137, 80, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 15 )
+
+[node name="Switch" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr" instance=ExtResource( 9 )]
+margin_left = -207.999
+margin_top = 136.001
+margin_right = 78.0007
+margin_bottom = 433.001
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -56.0004, -0.000640869, -56.0001, 55.9994, -128, 55.9997, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="Switch2" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr" instance=ExtResource( 9 )]
+margin_left = -15.9993
+margin_top = 136.0
+margin_right = 270.001
+margin_bottom = 433.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr/Switch2"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -128.001, -0.000274658, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr/Switch2"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicAnd2" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd"]
+position = Vector2( 288.001, 183.999 )
+script = ExtResource( 14 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -360.001, 0.0010376, -360, 64.001, -128, 64, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 1 )
+
+[node name="Switch" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2" instance=ExtResource( 9 )]
+margin_left = -127.999
+margin_top = 272.001
+margin_right = 158.001
+margin_bottom = 569.001
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -128.001, -136, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="LogicInvert" type="Node2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2"]
+position = Vector2( 144.001, 159.999 )
+script = ExtResource( 13 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/LogicInvert"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -224.001, 48.0004, -224, 104, -136, 104, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/LogicInvert"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Switch" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/LogicInvert" instance=ExtResource( 9 )]
+margin_left = -71.9993
+margin_top = 112.0
+margin_right = 214.001
+margin_bottom = 409.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 3 )
+custom_icons/on = ExtResource( 2 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/LogicInvert/Switch"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -128.001, 23.9997, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/LogicInvert/Switch"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 4 )
+shape_visible = false
+
+[node name="Holly1" type="TextureButton" parent="."]
+margin_left = 3186.0
+margin_top = 1434.0
+margin_right = 4040.0
+margin_bottom = 2358.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture_normal = ExtResource( 8 )
+
+[node name="Holly2" type="TextureButton" parent="."]
+margin_left = 3614.0
+margin_top = 728.0
+margin_right = 4468.0
+margin_bottom = 1652.0
+rect_rotation = 180.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture_normal = ExtResource( 8 )
+
+[connection signal="gameFinished" from="Lightbulb" to="." method="end"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links" to="Lightbulb" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links" to="Lightbulb/LogicAnd_links" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr" method="first"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/Switch" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/LogicInvert" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/LogicInvert/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/LogicInvert/Switch" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/LogicInvert" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/LogicInvert/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicOr/LogicInvert/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd" method="first"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/Switch" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/LogicInvert" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/LogicInvert/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/LogicInvert/Switch" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/LogicInvert" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/LogicInvert/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr/LogicInvert/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/Switch" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd/Switch" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd/Switch2" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd/Switch2" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd" method="second"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd/Switch2/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicInvert_oben_links/LogicOr/LogicAnd/LogicOr2/LogicAnd/Switch2" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links" to="Lightbulb/LogicAnd_links" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicInvert" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr" method="first"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicInvert/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicInvert/Switch" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicInvert" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicInvert/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicInvert/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/Switch" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/LogicInvert" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/LogicInvert/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/LogicInvert/Switch" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/LogicInvert" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/LogicInvert/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicInvert/LogicOr/LogicOr/LogicInvert/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert" method="first"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/Switch" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/LogicInvert" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/LogicInvert/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/LogicInvert/Switch" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/LogicInvert" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/LogicInvert/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicInvert/LogicAnd/LogicInvert/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicInvert" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd" method="first"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicInvert/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicInvert/Switch" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicInvert" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicInvert/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicInvert/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd/Switch" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd/Switch2" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd/Switch2" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd" method="second"]
+[connection signal="released" from="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd/Switch2/TouchScreenButton" to="Lightbulb/LogicAnd_links/LogicAnd_unten_links/LogicOr/LogicAnd/LogicAnd/Switch2" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts" to="Lightbulb" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts" to="Lightbulb/LogicAnd_rechts" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/LogicInvert" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd" method="first"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/LogicInvert/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/LogicInvert/Switch" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/LogicInvert" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/LogicInvert/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/LogicInvert/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/Switch" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd" method="second"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicAnd/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/Switch" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd/Switch" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd/Switch2" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd/Switch2" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd" method="second"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd/Switch2/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicAnd/LogicOr/LogicAnd/Switch2" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert" method="first"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/Switch" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/LogicInvert" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/LogicInvert/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/LogicInvert/Switch" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/LogicInvert" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/LogicInvert/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicInvert_unten_rechts/LogicOr/LogicInvert/LogicAnd/LogicInvert/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts" to="Lightbulb/LogicAnd_rechts" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd" method="first"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/Switch" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/LogicInvert" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/LogicInvert/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/LogicInvert/Switch" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/LogicInvert" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/LogicInvert/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicOr/LogicInvert/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicInvert" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicInvert/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicInvert/Switch" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicInvert" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicInvert/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicInvert/LogicAnd/LogicInvert/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicInvert" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd" method="first"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicInvert/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicInvert/Switch" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicInvert" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicInvert/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicInvert/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr/Switch" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr/Switch2" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr/Switch2" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr" method="second"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr/Switch2/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd/LogicOr/Switch2" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/Switch" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/LogicInvert" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2" method="second"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/LogicInvert/Switch" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/LogicInvert/Switch" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/LogicInvert" method="first"]
+[connection signal="released" from="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/LogicInvert/Switch/TouchScreenButton" to="Lightbulb/LogicAnd_rechts/LogicAnd_oben_rechts/LogicAnd/LogicAnd2/LogicInvert/Switch" method="_on_TouchScreenButton_released"]
+[connection signal="pressed" from="Holly1" to="." method="_on_Holly_pressed"]
+[connection signal="pressed" from="Holly2" to="." method="_on_Holly_pressed"]

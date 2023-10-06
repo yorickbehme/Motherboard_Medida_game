@@ -1,0 +1,1881 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://CpuGpu/Sprites/button_off.png" type="Texture" id=1]
+[ext_resource path="res://CpuGpu/Sprites/bulb_on.png" type="Texture" id=2]
+[ext_resource path="res://CpuGpu/Sprites/and_gate.png" type="Texture" id=3]
+[ext_resource path="res://CpuGpu/Sprites/or_gate.png" type="Texture" id=4]
+[ext_resource path="res://CpuGpu/Sprites/not_gate_on.png" type="Texture" id=5]
+[ext_resource path="res://CpuGpu/Sprites/button_on.png" type="Texture" id=6]
+[ext_resource path="res://CpuGpu/Sprites/bulb_off.png" type="Texture" id=7]
+[ext_resource path="res://CpuGpu/Sprites/not_gate_off.png" type="Texture" id=8]
+[ext_resource path="res://CpuGpu/Switch.tscn" type="PackedScene" id=9]
+[ext_resource path="res://CpuGpu/LogicAnd.gd" type="Script" id=10]
+[ext_resource path="res://CpuGpu/LogicInvert.gd" type="Script" id=11]
+[ext_resource path="res://CpuGpu/LogicOr.gd" type="Script" id=12]
+[ext_resource path="res://CpuGpu/GpuGame.gd" type="Script" id=13]
+[ext_resource path="res://CpuGpu/GpuLightbulb.gd" type="Script" id=14]
+[ext_resource path="res://Assets/holly_happy.png" type="Texture" id=15]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": false,
+"name": "off",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": false,
+"name": "on",
+"speed": 1.0
+} ]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 8 ) ],
+"loop": false,
+"name": "off",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "on",
+"speed": 1.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
+
+[node name="GPU" type="Node2D"]
+script = ExtResource( 13 )
+
+[node name="Background" type="Node2D" parent="."]
+z_index = -50
+
+[node name="Background" type="ColorRect" parent="Background"]
+margin_right = 3841.0
+margin_bottom = 2160.0
+
+[node name="Lightbulb" type="Node2D" parent="."]
+position = Vector2( -584, 40 )
+scale = Vector2( 0.777015, 0.777015 )
+z_index = 20
+script = ExtResource( 14 )
+
+[node name="LogicImage" type="AnimatedSprite" parent="Lightbulb"]
+position = Vector2( 1539.85, 953.779 )
+scale = Vector2( 0.407863, 0.407863 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "on"
+
+[node name="LogicAnd1" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1529.55, 1211.17 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd1"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -128, 42.4778, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd1"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicOr2" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1163.43, 1468.57 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicOr2"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( 171.874, -73.0717, 171.874, 26, -135, 26, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicOr2"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicAnd3" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1760.58, 1468.57 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd3"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -303.029, -70.776, -303.029, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd3"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd4" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1019.29, 1729.7 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd4"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -45.6335, -74.5081, -45.6335, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd4"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd5" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1286.98, 1729.7 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd5"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -200.071, -84.804, -200.071, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd5"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicOr6" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1637.03, 1729.7 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicOr6"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -75.2253, -76.8038, -75.2253, 26.1543, -135, 26, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicOr6"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicAnd7" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1966.5, 1729.7 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd7"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -282.438, -74.5076, -282.438, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd7"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd8" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1142.84, 1997.39 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd8"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -45.6335, -84.8036, -45.6335, 32, -128, 32, -128, 110.817, -128, 32, -189.775, 32, -189.775, -95.0995 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd8"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd9" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1389.93, 1997.39 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd9"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -179.479, -84.8032, -179.479, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd9"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicInvert10" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1904.73, 1863.54 )
+script = ExtResource( 11 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicInvert10"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, 39.8586, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicInvert10"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="LogicInvert11" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1081.06, 2265.08 )
+script = ExtResource( 11 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicInvert11"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, -52.8042, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicInvert11"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="LogicOr12" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1575.26, 2254.78 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicOr12"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -137, -334.199, -137, -15.0288, -137, -15.0288, -137, 139.408 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicOr12"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicOr13" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1812.06, 2090.05 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicOr13"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -44.3383, -35.6201, -44.3383, 26.1548, -137.001, 26.1548, -137.001, 129.113, -137.001, 26.1548, -250.255, 26.1548, -250.255, -169.466 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicOr13"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicAnd14" type="Node2D" parent="Lightbulb"]
+position = Vector2( 2069.46, 2090.05 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicAnd14"]
+position = Vector2( 126.713, -152 )
+z_index = 10
+points = PoolVector2Array( -179.479, -177.466, -179.479, 18.1544, -128, 18.1544, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb/LogicAnd14"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicInvert16" type="Node2D" parent="Lightbulb"]
+position = Vector2( 1873.84, 2265.08 )
+script = ExtResource( 11 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb/LogicInvert16"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, 24, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb/LogicInvert16"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="Switch17" parent="Lightbulb" instance=ExtResource( 9 )]
+margin_left = 916.328
+margin_top = 2471.0
+margin_right = 1202.33
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/Switch17"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -35.2674, -81.325, -35.2674, 31.929, -127.93, 31.929, -128, 124.591, -127.93, 31.929, -158.817, 31.929, -158.817, -606.411 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/Switch17"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch18" parent="Lightbulb" instance=ExtResource( 9 )]
+margin_left = 1142.84
+margin_top = 2471.0
+margin_right = 1428.84
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/Switch18"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -14.676, -349.016, -14.676, -60.7334, -127.93, -60.7334, -127.93, 134.887, -127.93, -60.7334, -148.522, -60.7334, -148.522, -338.72 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/Switch18"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch19" parent="Lightbulb" instance=ExtResource( 9 )]
+margin_left = 1369.34
+margin_top = 2471.0
+margin_right = 1655.34
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/Switch19"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -55.8594, -81.3259, -55.8594, 31.928, -127.93, 31.928, -128, -338.721, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/Switch19"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch20" parent="Lightbulb" instance=ExtResource( 9 )]
+margin_left = 1595.85
+margin_top = 2471.0
+margin_right = 1881.85
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/Switch20"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -45.5637, -246.059, -45.5637, 31.928, -127.93, 31.928, -127.93, 124.59, -127.93, 31.928, -158.818, 31.928, -158.818, -81.3259 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/Switch20"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch21" parent="Lightbulb" instance=ExtResource( 9 )]
+margin_left = 1812.06
+margin_top = 2471.0
+margin_right = 2098.06
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/Switch21"]
+position = Vector2( 397.426, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -138.226, -81.325, -138.226, 31.929, -128, 32, -127.93, 124.591, -127.93, 31.929, -4.38037, 31.929, -4.38037, -246.058 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/Switch21"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch22" parent="Lightbulb" instance=ExtResource( 9 )]
+margin_left = 2028.28
+margin_top = 2471.0
+margin_right = 2314.28
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb/Switch22"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -97.0427, -246.058, -97.0427, 31.929, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb/Switch22"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Lightbulb2" type="Node2D" parent="."]
+position = Vector2( 1168, 40 )
+scale = Vector2( 0.777015, 0.777015 )
+z_index = 20
+script = ExtResource( 14 )
+
+[node name="LogicImage" type="AnimatedSprite" parent="Lightbulb2"]
+position = Vector2( 1539.85, 953.779 )
+scale = Vector2( 0.407863, 0.407863 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "on"
+
+[node name="LogicAnd1" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1529.55, 1211.17 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicAnd1"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -128, 42.4778, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb2/LogicAnd1"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicOr2" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1163.43, 1468.57 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicOr2"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( 171.874, -73.0717, 171.874, 26, -135, 26, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb2/LogicOr2"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicAnd3" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1760.58, 1468.57 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicAnd3"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -303.029, -70.776, -303.029, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb2/LogicAnd3"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd4" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1019.29, 1729.7 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicAnd4"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -45.6335, -74.5081, -45.6335, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb2/LogicAnd4"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd5" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1286.98, 1729.7 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicAnd5"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -200.071, -84.804, -200.071, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb2/LogicAnd5"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicOr6" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1637.03, 1729.7 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicOr6"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -75.2253, -76.8038, -75.2253, 26.1543, -135, 26, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb2/LogicOr6"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicAnd7" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1966.5, 1729.7 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicAnd7"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -282.438, -74.5076, -282.438, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb2/LogicAnd7"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd8" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1142.84, 1997.39 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicAnd8"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -45.6335, -84.8036, -45.6335, 32, -128, 32, -128, 110.817, -128, 32, -189.775, 32, -189.775, -95.0995 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb2/LogicAnd8"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd9" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1389.93, 1997.39 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicAnd9"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -179.479, -84.8032, -179.479, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb2/LogicAnd9"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicInvert10" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1904.73, 1863.54 )
+script = ExtResource( 11 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicInvert10"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, 39.8586, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb2/LogicInvert10"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="LogicInvert11" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1081.06, 2265.08 )
+script = ExtResource( 11 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicInvert11"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, -52.8042, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb2/LogicInvert11"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="LogicOr12" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1575.26, 2254.78 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicOr12"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -137, -334.199, -137, -15.0288, -137, -15.0288, -137, 139.408 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb2/LogicOr12"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicOr13" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1812.06, 2090.05 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicOr13"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -44.3383, -35.6201, -44.3383, 26.1548, -137.001, 26.1548, -137.001, 129.113, -137.001, 26.1548, -250.255, 26.1548, -250.255, -169.466 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb2/LogicOr13"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicAnd14" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 2069.46, 2090.05 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicAnd14"]
+position = Vector2( 126.713, -152 )
+z_index = 10
+points = PoolVector2Array( -179.479, -177.466, -179.479, 18.1544, -128, 18.1544, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb2/LogicAnd14"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicInvert16" type="Node2D" parent="Lightbulb2"]
+position = Vector2( 1873.84, 2265.08 )
+script = ExtResource( 11 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/LogicInvert16"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, 24, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb2/LogicInvert16"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="Switch17" parent="Lightbulb2" instance=ExtResource( 9 )]
+margin_left = 916.328
+margin_top = 2471.0
+margin_right = 1202.33
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/Switch17"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -35.2674, -81.325, -35.2674, 31.929, -127.93, 31.929, -128, 124.591, -127.93, 31.929, -158.817, 31.929, -158.817, -606.411 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb2/Switch17"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch18" parent="Lightbulb2" instance=ExtResource( 9 )]
+margin_left = 1142.84
+margin_top = 2471.0
+margin_right = 1428.84
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/Switch18"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -14.676, -349.016, -14.676, -60.7334, -127.93, -60.7334, -127.93, 134.887, -127.93, -60.7334, -148.522, -60.7334, -148.522, -338.72 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb2/Switch18"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch19" parent="Lightbulb2" instance=ExtResource( 9 )]
+margin_left = 1369.34
+margin_top = 2471.0
+margin_right = 1655.34
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/Switch19"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -55.8594, -81.3259, -55.8594, 31.928, -127.93, 31.928, -128, -338.721, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb2/Switch19"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch20" parent="Lightbulb2" instance=ExtResource( 9 )]
+margin_left = 1595.85
+margin_top = 2471.0
+margin_right = 1881.85
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/Switch20"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -45.5637, -246.059, -45.5637, 31.928, -127.93, 31.928, -127.93, 124.59, -127.93, 31.928, -158.818, 31.928, -158.818, -81.3259 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb2/Switch20"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch21" parent="Lightbulb2" instance=ExtResource( 9 )]
+margin_left = 1812.06
+margin_top = 2471.0
+margin_right = 2098.06
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/Switch21"]
+position = Vector2( 397.426, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -138.226, -81.325, -138.226, 31.929, -128, 32, -127.93, 124.591, -127.93, 31.929, -4.38037, 31.929, -4.38037, -246.058 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb2/Switch21"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch22" parent="Lightbulb2" instance=ExtResource( 9 )]
+margin_left = 2028.28
+margin_top = 2471.0
+margin_right = 2314.28
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb2/Switch22"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -97.0427, -246.058, -97.0427, 31.929, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb2/Switch22"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Lightbulb3" type="Node2D" parent="."]
+position = Vector2( 2584, 2120 )
+rotation = -3.14159
+scale = Vector2( 0.777015, 0.777015 )
+z_index = 20
+script = ExtResource( 14 )
+
+[node name="LogicImage" type="AnimatedSprite" parent="Lightbulb3"]
+position = Vector2( 1539.85, 953.779 )
+scale = Vector2( 0.407863, 0.407863 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "on"
+
+[node name="LogicAnd1" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1529.55, 1211.17 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicAnd1"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -128, 42.4778, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb3/LogicAnd1"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicOr2" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1163.43, 1468.57 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicOr2"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( 171.874, -73.0717, 171.874, 26, -135, 26, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb3/LogicOr2"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicAnd3" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1760.58, 1468.57 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicAnd3"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -303.029, -70.776, -303.029, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb3/LogicAnd3"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd4" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1019.29, 1729.7 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicAnd4"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -45.6335, -74.5081, -45.6335, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb3/LogicAnd4"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd5" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1286.98, 1729.7 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicAnd5"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -200.071, -84.804, -200.071, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb3/LogicAnd5"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicOr6" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1637.03, 1729.7 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicOr6"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -75.2253, -76.8038, -75.2253, 26.1543, -135, 26, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb3/LogicOr6"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicAnd7" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1966.5, 1729.7 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicAnd7"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -282.438, -74.5076, -282.438, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb3/LogicAnd7"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd8" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1142.84, 1997.39 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicAnd8"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -45.6335, -84.8036, -45.6335, 32, -128, 32, -128, 110.817, -128, 32, -189.775, 32, -189.775, -95.0995 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb3/LogicAnd8"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd9" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1389.93, 1997.39 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicAnd9"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -179.479, -84.8032, -179.479, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb3/LogicAnd9"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicInvert10" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1904.73, 1863.54 )
+script = ExtResource( 11 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicInvert10"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, 39.8586, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb3/LogicInvert10"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="LogicInvert11" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1081.06, 2265.08 )
+script = ExtResource( 11 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicInvert11"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, -52.8042, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb3/LogicInvert11"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="LogicOr12" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1575.26, 2254.78 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicOr12"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -137, -334.199, -137, -15.0288, -137, -15.0288, -137, 139.408 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb3/LogicOr12"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicOr13" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1812.06, 2090.05 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicOr13"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -44.3383, -35.6201, -44.3383, 26.1548, -137.001, 26.1548, -137.001, 129.113, -137.001, 26.1548, -250.255, 26.1548, -250.255, -169.466 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb3/LogicOr13"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicAnd14" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 2069.46, 2090.05 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicAnd14"]
+position = Vector2( 126.713, -152 )
+z_index = 10
+points = PoolVector2Array( -179.479, -177.466, -179.479, 18.1544, -128, 18.1544, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb3/LogicAnd14"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicInvert16" type="Node2D" parent="Lightbulb3"]
+position = Vector2( 1873.84, 2265.08 )
+script = ExtResource( 11 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/LogicInvert16"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, 24, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb3/LogicInvert16"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="Switch17" parent="Lightbulb3" instance=ExtResource( 9 )]
+margin_left = 916.328
+margin_top = 2471.0
+margin_right = 1202.33
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/Switch17"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -35.2674, -81.325, -35.2674, 31.929, -127.93, 31.929, -128, 124.591, -127.93, 31.929, -158.817, 31.929, -158.817, -606.411 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb3/Switch17"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch18" parent="Lightbulb3" instance=ExtResource( 9 )]
+margin_left = 1142.84
+margin_top = 2471.0
+margin_right = 1428.84
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/Switch18"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -14.676, -349.016, -14.676, -60.7334, -127.93, -60.7334, -127.93, 134.887, -127.93, -60.7334, -148.522, -60.7334, -148.522, -338.72 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb3/Switch18"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch19" parent="Lightbulb3" instance=ExtResource( 9 )]
+margin_left = 1369.34
+margin_top = 2471.0
+margin_right = 1655.34
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/Switch19"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -55.8594, -81.3259, -55.8594, 31.928, -127.93, 31.928, -128, -338.721, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb3/Switch19"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch20" parent="Lightbulb3" instance=ExtResource( 9 )]
+margin_left = 1595.85
+margin_top = 2471.0
+margin_right = 1881.85
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/Switch20"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -45.5637, -246.059, -45.5637, 31.928, -127.93, 31.928, -127.93, 124.59, -127.93, 31.928, -158.818, 31.928, -158.818, -81.3259 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb3/Switch20"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch21" parent="Lightbulb3" instance=ExtResource( 9 )]
+margin_left = 1812.06
+margin_top = 2471.0
+margin_right = 2098.06
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/Switch21"]
+position = Vector2( 397.426, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -138.226, -81.325, -138.226, 31.929, -128, 32, -127.93, 124.591, -127.93, 31.929, -4.38037, 31.929, -4.38037, -246.058 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb3/Switch21"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch22" parent="Lightbulb3" instance=ExtResource( 9 )]
+margin_left = 2028.28
+margin_top = 2471.0
+margin_right = 2314.28
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb3/Switch22"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -97.0427, -246.058, -97.0427, 31.929, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb3/Switch22"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Lightbulb4" type="Node2D" parent="."]
+position = Vector2( 4432, 2120 )
+rotation = 3.14159
+scale = Vector2( 0.777015, 0.777015 )
+z_index = 20
+script = ExtResource( 14 )
+
+[node name="LogicImage" type="AnimatedSprite" parent="Lightbulb4"]
+position = Vector2( 1539.85, 953.779 )
+scale = Vector2( 0.407863, 0.407863 )
+z_index = 20
+frames = SubResource( 2 )
+animation = "on"
+
+[node name="LogicAnd1" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1529.55, 1211.17 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicAnd1"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -128, 42.4778, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb4/LogicAnd1"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicOr2" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1163.43, 1468.57 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicOr2"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( 171.874, -73.0717, 171.874, 26, -135, 26, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb4/LogicOr2"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicAnd3" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1760.58, 1468.57 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicAnd3"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -303.029, -70.776, -303.029, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb4/LogicAnd3"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd4" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1019.29, 1729.7 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicAnd4"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -45.6335, -74.5081, -45.6335, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb4/LogicAnd4"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd5" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1286.98, 1729.7 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicAnd5"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -200.071, -84.804, -200.071, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb4/LogicAnd5"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicOr6" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1637.03, 1729.7 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicOr6"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -75.2253, -76.8038, -75.2253, 26.1543, -135, 26, -135, 136 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb4/LogicOr6"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicAnd7" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1966.5, 1729.7 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicAnd7"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -282.438, -74.5076, -282.438, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb4/LogicAnd7"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd8" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1142.84, 1997.39 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicAnd8"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -45.6335, -84.8036, -45.6335, 32, -128, 32, -128, 110.817, -128, 32, -189.775, 32, -189.775, -95.0995 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb4/LogicAnd8"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicAnd9" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1389.93, 1997.39 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicAnd9"]
+position = Vector2( 128, -152 )
+z_index = 10
+points = PoolVector2Array( -179.479, -84.8032, -179.479, 32, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb4/LogicAnd9"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicInvert10" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1904.73, 1863.54 )
+script = ExtResource( 11 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicInvert10"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, 39.8586, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb4/LogicInvert10"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="LogicInvert11" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1081.06, 2265.08 )
+script = ExtResource( 11 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicInvert11"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, -52.8042, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb4/LogicInvert11"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="LogicOr12" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1575.26, 2254.78 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicOr12"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -137, -334.199, -137, -15.0288, -137, -15.0288, -137, 139.408 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb4/LogicOr12"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicOr13" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1812.06, 2090.05 )
+script = ExtResource( 12 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicOr13"]
+position = Vector2( 137, -160 )
+z_index = 10
+points = PoolVector2Array( -44.3383, -35.6201, -44.3383, 26.1548, -137.001, 26.1548, -137.001, 129.113, -137.001, 26.1548, -250.255, 26.1548, -250.255, -169.466 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb4/LogicOr13"]
+position = Vector2( 0, -6.10352e-05 )
+scale = Vector2( 0.634419, 0.634419 )
+z_index = 20
+texture = ExtResource( 4 )
+
+[node name="LogicAnd14" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 2069.46, 2090.05 )
+script = ExtResource( 10 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicAnd14"]
+position = Vector2( 126.713, -152 )
+z_index = 10
+points = PoolVector2Array( -179.479, -177.466, -179.479, 18.1544, -128, 18.1544, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImage" type="Sprite" parent="Lightbulb4/LogicAnd14"]
+scale = Vector2( 0.634406, 0.634406 )
+z_index = 20
+texture = ExtResource( 3 )
+
+[node name="LogicInvert16" type="Node2D" parent="Lightbulb4"]
+position = Vector2( 1873.84, 2265.08 )
+script = ExtResource( 11 )
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/LogicInvert16"]
+position = Vector2( 136, -184 )
+z_index = 10
+points = PoolVector2Array( -136, 24, -136, 160 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="LogicImages" type="AnimatedSprite" parent="Lightbulb4/LogicInvert16"]
+scale = Vector2( 0.0673947, 0.0673947 )
+z_index = 20
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="Switch17" parent="Lightbulb4" instance=ExtResource( 9 )]
+margin_left = 916.328
+margin_top = 2471.0
+margin_right = 1202.33
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/Switch17"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -35.2674, -81.325, -35.2674, 31.929, -127.93, 31.929, -128, 124.591, -127.93, 31.929, -158.817, 31.929, -158.817, -606.411 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb4/Switch17"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch18" parent="Lightbulb4" instance=ExtResource( 9 )]
+margin_left = 1142.84
+margin_top = 2471.0
+margin_right = 1428.84
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/Switch18"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -14.676, -349.016, -14.676, -60.7334, -127.93, -60.7334, -127.93, 134.887, -127.93, -60.7334, -148.522, -60.7334, -148.522, -338.72 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb4/Switch18"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch19" parent="Lightbulb4" instance=ExtResource( 9 )]
+margin_left = 1369.34
+margin_top = 2471.0
+margin_right = 1655.34
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/Switch19"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -55.8594, -81.3259, -55.8594, 31.928, -127.93, 31.928, -128, -338.721, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb4/Switch19"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch20" parent="Lightbulb4" instance=ExtResource( 9 )]
+margin_left = 1595.85
+margin_top = 2471.0
+margin_right = 1881.85
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/Switch20"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -45.5637, -246.059, -45.5637, 31.928, -127.93, 31.928, -127.93, 124.59, -127.93, 31.928, -158.818, 31.928, -158.818, -81.3259 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb4/Switch20"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch21" parent="Lightbulb4" instance=ExtResource( 9 )]
+margin_left = 1812.06
+margin_top = 2471.0
+margin_right = 2098.06
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/Switch21"]
+position = Vector2( 397.426, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -138.226, -81.325, -138.226, 31.929, -128, 32, -127.93, 124.591, -127.93, 31.929, -4.38037, 31.929, -4.38037, -246.058 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb4/Switch21"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Switch22" parent="Lightbulb4" instance=ExtResource( 9 )]
+margin_left = 2028.28
+margin_top = 2471.0
+margin_right = 2314.28
+margin_bottom = 2768.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_icons/off = ExtResource( 1 )
+custom_icons/on = ExtResource( 6 )
+button_mask = 4
+
+[node name="Wire" type="Line2D" parent="Lightbulb4/Switch22"]
+position = Vector2( 400, -208 )
+scale = Vector2( 2, 2 )
+z_index = -10
+points = PoolVector2Array( -97.0427, -246.058, -97.0427, 31.929, -128, 32, -128, 120 )
+default_color = Color( 0, 0.811765, 1, 1 )
+joint_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Lightbulb4/Switch22"]
+position = Vector2( -8, -8 )
+scale = Vector2( 15, 14.9535 )
+z_index = 20
+shape = SubResource( 3 )
+shape_visible = false
+
+[node name="Holly1" type="TextureButton" parent="."]
+margin_left = 3258.0
+margin_top = 1613.0
+margin_right = 4112.0
+margin_bottom = 2537.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture_normal = ExtResource( 15 )
+
+[node name="Holly2" type="TextureButton" parent="."]
+margin_left = 545.0
+margin_top = 562.0
+margin_right = 1399.0
+margin_bottom = 1486.0
+rect_rotation = 180.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture_normal = ExtResource( 15 )
+
+[connection signal="updateState" from="Lightbulb" to="." method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd1" to="Lightbulb" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicOr2" to="Lightbulb/LogicAnd1" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd3" to="Lightbulb/LogicAnd1" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicAnd4" to="Lightbulb/LogicOr2" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd5" to="Lightbulb/LogicOr2" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicOr6" to="Lightbulb/LogicAnd3" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd7" to="Lightbulb/LogicAnd3" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicAnd8" to="Lightbulb/LogicAnd4" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicAnd8" to="Lightbulb/LogicAnd5" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd9" to="Lightbulb/LogicAnd5" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicInvert10" to="Lightbulb/LogicAnd7" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicInvert11" to="Lightbulb/LogicAnd8" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicOr12" to="Lightbulb/LogicOr6" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicOr13" to="Lightbulb/LogicOr6" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicOr13" to="Lightbulb/LogicInvert10" method="first"]
+[connection signal="updateState" from="Lightbulb/LogicAnd14" to="Lightbulb/LogicAnd7" method="second"]
+[connection signal="updateState" from="Lightbulb/LogicInvert16" to="Lightbulb/LogicOr13" method="second"]
+[connection signal="toggled" from="Lightbulb/Switch17" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/Switch17" to="Lightbulb/LogicAnd4" method="first"]
+[connection signal="toggled" from="Lightbulb/Switch17" to="Lightbulb/LogicInvert11" method="first"]
+[connection signal="released" from="Lightbulb/Switch17/TouchScreenButton" to="Lightbulb/Switch17" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb/Switch18" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/Switch18" to="Lightbulb/LogicAnd8" method="second"]
+[connection signal="toggled" from="Lightbulb/Switch18" to="Lightbulb/LogicAnd9" method="first"]
+[connection signal="released" from="Lightbulb/Switch18/TouchScreenButton" to="Lightbulb/Switch18" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb/Switch19" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/Switch19" to="Lightbulb/LogicAnd9" method="second"]
+[connection signal="toggled" from="Lightbulb/Switch19" to="Lightbulb/LogicOr12" method="first"]
+[connection signal="released" from="Lightbulb/Switch19/TouchScreenButton" to="Lightbulb/Switch19" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb/Switch20" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/Switch20" to="Lightbulb/LogicOr12" method="second"]
+[connection signal="toggled" from="Lightbulb/Switch20" to="Lightbulb/LogicOr13" method="first"]
+[connection signal="released" from="Lightbulb/Switch20/TouchScreenButton" to="Lightbulb/Switch20" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb/Switch21" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/Switch21" to="Lightbulb/LogicAnd14" method="first"]
+[connection signal="toggled" from="Lightbulb/Switch21" to="Lightbulb/LogicInvert16" method="first"]
+[connection signal="released" from="Lightbulb/Switch21/TouchScreenButton" to="Lightbulb/Switch21" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb/Switch22" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb/Switch22" to="Lightbulb/LogicAnd14" method="second"]
+[connection signal="released" from="Lightbulb/Switch22/TouchScreenButton" to="Lightbulb/Switch22" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb2" to="." method="second"]
+[connection signal="updateState" from="Lightbulb2/LogicAnd1" to="Lightbulb2" method="first"]
+[connection signal="updateState" from="Lightbulb2/LogicOr2" to="Lightbulb2/LogicAnd1" method="first"]
+[connection signal="updateState" from="Lightbulb2/LogicAnd3" to="Lightbulb2/LogicAnd1" method="second"]
+[connection signal="updateState" from="Lightbulb2/LogicAnd4" to="Lightbulb2/LogicOr2" method="first"]
+[connection signal="updateState" from="Lightbulb2/LogicAnd5" to="Lightbulb2/LogicOr2" method="second"]
+[connection signal="updateState" from="Lightbulb2/LogicOr6" to="Lightbulb2/LogicAnd3" method="first"]
+[connection signal="updateState" from="Lightbulb2/LogicAnd7" to="Lightbulb2/LogicAnd3" method="second"]
+[connection signal="updateState" from="Lightbulb2/LogicAnd8" to="Lightbulb2/LogicAnd4" method="second"]
+[connection signal="updateState" from="Lightbulb2/LogicAnd8" to="Lightbulb2/LogicAnd5" method="first"]
+[connection signal="updateState" from="Lightbulb2/LogicAnd9" to="Lightbulb2/LogicAnd5" method="second"]
+[connection signal="updateState" from="Lightbulb2/LogicInvert10" to="Lightbulb2/LogicAnd7" method="first"]
+[connection signal="updateState" from="Lightbulb2/LogicInvert11" to="Lightbulb2/LogicAnd8" method="first"]
+[connection signal="updateState" from="Lightbulb2/LogicOr12" to="Lightbulb2/LogicOr6" method="first"]
+[connection signal="updateState" from="Lightbulb2/LogicOr13" to="Lightbulb2/LogicOr6" method="second"]
+[connection signal="updateState" from="Lightbulb2/LogicOr13" to="Lightbulb2/LogicInvert10" method="first"]
+[connection signal="updateState" from="Lightbulb2/LogicAnd14" to="Lightbulb2/LogicAnd7" method="second"]
+[connection signal="updateState" from="Lightbulb2/LogicInvert16" to="Lightbulb2/LogicOr13" method="second"]
+[connection signal="toggled" from="Lightbulb2/Switch17" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb2/Switch17" to="Lightbulb2/LogicAnd4" method="first"]
+[connection signal="toggled" from="Lightbulb2/Switch17" to="Lightbulb2/LogicInvert11" method="first"]
+[connection signal="released" from="Lightbulb2/Switch17/TouchScreenButton" to="Lightbulb2/Switch17" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb2/Switch18" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb2/Switch18" to="Lightbulb2/LogicAnd8" method="second"]
+[connection signal="toggled" from="Lightbulb2/Switch18" to="Lightbulb2/LogicAnd9" method="first"]
+[connection signal="released" from="Lightbulb2/Switch18/TouchScreenButton" to="Lightbulb2/Switch18" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb2/Switch19" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb2/Switch19" to="Lightbulb2/LogicAnd9" method="second"]
+[connection signal="toggled" from="Lightbulb2/Switch19" to="Lightbulb2/LogicOr12" method="first"]
+[connection signal="released" from="Lightbulb2/Switch19/TouchScreenButton" to="Lightbulb2/Switch19" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb2/Switch20" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb2/Switch20" to="Lightbulb2/LogicOr12" method="second"]
+[connection signal="toggled" from="Lightbulb2/Switch20" to="Lightbulb2/LogicOr13" method="first"]
+[connection signal="released" from="Lightbulb2/Switch20/TouchScreenButton" to="Lightbulb2/Switch20" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb2/Switch21" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb2/Switch21" to="Lightbulb2/LogicAnd14" method="first"]
+[connection signal="toggled" from="Lightbulb2/Switch21" to="Lightbulb2/LogicInvert16" method="first"]
+[connection signal="released" from="Lightbulb2/Switch21/TouchScreenButton" to="Lightbulb2/Switch21" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb2/Switch22" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb2/Switch22" to="Lightbulb2/LogicAnd14" method="second"]
+[connection signal="released" from="Lightbulb2/Switch22/TouchScreenButton" to="Lightbulb2/Switch22" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb3" to="." method="third"]
+[connection signal="updateState" from="Lightbulb3/LogicAnd1" to="Lightbulb3" method="first"]
+[connection signal="updateState" from="Lightbulb3/LogicOr2" to="Lightbulb3/LogicAnd1" method="first"]
+[connection signal="updateState" from="Lightbulb3/LogicAnd3" to="Lightbulb3/LogicAnd1" method="second"]
+[connection signal="updateState" from="Lightbulb3/LogicAnd4" to="Lightbulb3/LogicOr2" method="first"]
+[connection signal="updateState" from="Lightbulb3/LogicAnd5" to="Lightbulb3/LogicOr2" method="second"]
+[connection signal="updateState" from="Lightbulb3/LogicOr6" to="Lightbulb3/LogicAnd3" method="first"]
+[connection signal="updateState" from="Lightbulb3/LogicAnd7" to="Lightbulb3/LogicAnd3" method="second"]
+[connection signal="updateState" from="Lightbulb3/LogicAnd8" to="Lightbulb3/LogicAnd4" method="second"]
+[connection signal="updateState" from="Lightbulb3/LogicAnd8" to="Lightbulb3/LogicAnd5" method="first"]
+[connection signal="updateState" from="Lightbulb3/LogicAnd9" to="Lightbulb3/LogicAnd5" method="second"]
+[connection signal="updateState" from="Lightbulb3/LogicInvert10" to="Lightbulb3/LogicAnd7" method="first"]
+[connection signal="updateState" from="Lightbulb3/LogicInvert11" to="Lightbulb3/LogicAnd8" method="first"]
+[connection signal="updateState" from="Lightbulb3/LogicOr12" to="Lightbulb3/LogicOr6" method="first"]
+[connection signal="updateState" from="Lightbulb3/LogicOr13" to="Lightbulb3/LogicOr6" method="second"]
+[connection signal="updateState" from="Lightbulb3/LogicOr13" to="Lightbulb3/LogicInvert10" method="first"]
+[connection signal="updateState" from="Lightbulb3/LogicAnd14" to="Lightbulb3/LogicAnd7" method="second"]
+[connection signal="updateState" from="Lightbulb3/LogicInvert16" to="Lightbulb3/LogicOr13" method="second"]
+[connection signal="toggled" from="Lightbulb3/Switch17" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb3/Switch17" to="Lightbulb3/LogicAnd4" method="first"]
+[connection signal="toggled" from="Lightbulb3/Switch17" to="Lightbulb3/LogicInvert11" method="first"]
+[connection signal="released" from="Lightbulb3/Switch17/TouchScreenButton" to="Lightbulb3/Switch17" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb3/Switch18" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb3/Switch18" to="Lightbulb3/LogicAnd8" method="second"]
+[connection signal="toggled" from="Lightbulb3/Switch18" to="Lightbulb3/LogicAnd9" method="first"]
+[connection signal="released" from="Lightbulb3/Switch18/TouchScreenButton" to="Lightbulb3/Switch18" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb3/Switch19" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb3/Switch19" to="Lightbulb3/LogicAnd9" method="second"]
+[connection signal="toggled" from="Lightbulb3/Switch19" to="Lightbulb3/LogicOr12" method="first"]
+[connection signal="released" from="Lightbulb3/Switch19/TouchScreenButton" to="Lightbulb3/Switch19" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb3/Switch20" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb3/Switch20" to="Lightbulb3/LogicOr12" method="second"]
+[connection signal="toggled" from="Lightbulb3/Switch20" to="Lightbulb3/LogicOr13" method="first"]
+[connection signal="released" from="Lightbulb3/Switch20/TouchScreenButton" to="Lightbulb3/Switch20" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb3/Switch21" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb3/Switch21" to="Lightbulb3/LogicAnd14" method="first"]
+[connection signal="toggled" from="Lightbulb3/Switch21" to="Lightbulb3/LogicInvert16" method="first"]
+[connection signal="released" from="Lightbulb3/Switch21/TouchScreenButton" to="Lightbulb3/Switch21" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb3/Switch22" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb3/Switch22" to="Lightbulb3/LogicAnd14" method="second"]
+[connection signal="released" from="Lightbulb3/Switch22/TouchScreenButton" to="Lightbulb3/Switch22" method="_on_TouchScreenButton_released"]
+[connection signal="updateState" from="Lightbulb4" to="." method="fourth"]
+[connection signal="updateState" from="Lightbulb4/LogicAnd1" to="Lightbulb4" method="first"]
+[connection signal="updateState" from="Lightbulb4/LogicOr2" to="Lightbulb4/LogicAnd1" method="first"]
+[connection signal="updateState" from="Lightbulb4/LogicAnd3" to="Lightbulb4/LogicAnd1" method="second"]
+[connection signal="updateState" from="Lightbulb4/LogicAnd4" to="Lightbulb4/LogicOr2" method="first"]
+[connection signal="updateState" from="Lightbulb4/LogicAnd5" to="Lightbulb4/LogicOr2" method="second"]
+[connection signal="updateState" from="Lightbulb4/LogicOr6" to="Lightbulb4/LogicAnd3" method="first"]
+[connection signal="updateState" from="Lightbulb4/LogicAnd7" to="Lightbulb4/LogicAnd3" method="second"]
+[connection signal="updateState" from="Lightbulb4/LogicAnd8" to="Lightbulb4/LogicAnd4" method="second"]
+[connection signal="updateState" from="Lightbulb4/LogicAnd8" to="Lightbulb4/LogicAnd5" method="first"]
+[connection signal="updateState" from="Lightbulb4/LogicAnd9" to="Lightbulb4/LogicAnd5" method="second"]
+[connection signal="updateState" from="Lightbulb4/LogicInvert10" to="Lightbulb4/LogicAnd7" method="first"]
+[connection signal="updateState" from="Lightbulb4/LogicInvert11" to="Lightbulb4/LogicAnd8" method="first"]
+[connection signal="updateState" from="Lightbulb4/LogicOr12" to="Lightbulb4/LogicOr6" method="first"]
+[connection signal="updateState" from="Lightbulb4/LogicOr13" to="Lightbulb4/LogicOr6" method="second"]
+[connection signal="updateState" from="Lightbulb4/LogicOr13" to="Lightbulb4/LogicInvert10" method="first"]
+[connection signal="updateState" from="Lightbulb4/LogicAnd14" to="Lightbulb4/LogicAnd7" method="second"]
+[connection signal="updateState" from="Lightbulb4/LogicInvert16" to="Lightbulb4/LogicOr13" method="second"]
+[connection signal="toggled" from="Lightbulb4/Switch17" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb4/Switch17" to="Lightbulb4/LogicAnd4" method="first"]
+[connection signal="toggled" from="Lightbulb4/Switch17" to="Lightbulb4/LogicInvert11" method="first"]
+[connection signal="released" from="Lightbulb4/Switch17/TouchScreenButton" to="Lightbulb4/Switch17" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb4/Switch18" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb4/Switch18" to="Lightbulb4/LogicAnd8" method="second"]
+[connection signal="toggled" from="Lightbulb4/Switch18" to="Lightbulb4/LogicAnd9" method="first"]
+[connection signal="released" from="Lightbulb4/Switch18/TouchScreenButton" to="Lightbulb4/Switch18" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb4/Switch19" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb4/Switch19" to="Lightbulb4/LogicAnd9" method="second"]
+[connection signal="toggled" from="Lightbulb4/Switch19" to="Lightbulb4/LogicOr12" method="first"]
+[connection signal="released" from="Lightbulb4/Switch19/TouchScreenButton" to="Lightbulb4/Switch19" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb4/Switch20" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb4/Switch20" to="Lightbulb4/LogicOr12" method="second"]
+[connection signal="toggled" from="Lightbulb4/Switch20" to="Lightbulb4/LogicOr13" method="first"]
+[connection signal="released" from="Lightbulb4/Switch20/TouchScreenButton" to="Lightbulb4/Switch20" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb4/Switch21" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb4/Switch21" to="Lightbulb4/LogicAnd14" method="first"]
+[connection signal="toggled" from="Lightbulb4/Switch21" to="Lightbulb4/LogicInvert16" method="first"]
+[connection signal="released" from="Lightbulb4/Switch21/TouchScreenButton" to="Lightbulb4/Switch21" method="_on_TouchScreenButton_released"]
+[connection signal="toggled" from="Lightbulb4/Switch22" to="." method="pressed"]
+[connection signal="toggled" from="Lightbulb4/Switch22" to="Lightbulb4/LogicAnd14" method="second"]
+[connection signal="released" from="Lightbulb4/Switch22/TouchScreenButton" to="Lightbulb4/Switch22" method="_on_TouchScreenButton_released"]
+[connection signal="pressed" from="Holly1" to="." method="_on_Holly_pressed"]
+[connection signal="pressed" from="Holly2" to="." method="_on_Holly_pressed"]
